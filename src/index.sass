@@ -1,0 +1,68 @@
+\:root
+  --text-primary: black
+  --bg-clr: #FAFAFA
+  --tasks-btn-clr: #93919C
+  --active-btn-clr: #406EC4
+  --done--task-clr: #C4C3C9
+  --new-task-clr: #B9B8BE
+  --tasks-bg-image: url('./bg-desktop-light.jpg')
+
+  --task-heading-clr: #fff
+  --task-text-clr: #C3C5DE
+  --task-content-clr: #5F607E
+  --task-container-width: 280px
+  --task-container-bg: #FFFFFE
+  --task-container-b-clr: #E5E4E9
+  --task-container-shadow: 0px 0px 8px rgba(0, 0, 0, 0.18)
+  // 
+  --active-task-clr: #4A4B60
+  // 
+  --task-container-padding: 12px 20px
+  // 
+  --nav-width: 60%
+
+  // font sizes
+  --heading-10: 80px
+  --heading-20: 60px
+  --heading-30: 45px
+  --heading-40: 32px
+  --heading-50: 28px
+  --heading-60: 22px
+  --heading-70: 19px
+  // font sizes for paragraphs and other little texts
+  --text-10: 30px
+  --text-20: 26px
+  --text-30: 20px
+  --text-40: 18px
+  --text-50: 16px
+  --text-60: 14px
+  --text-70: 12px
+  --text-80: 10px
+  // other
+  --task-box-shadow: 0 0 14px
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  color: var(--text-primary)
+  font-family: Jost, sans-serif
+
+[data-theme='light']
+  --tasks-bg-image: url('./bg-desktop-light.jpg')
+  --task-container-bg: #FFFFFE
+
+
+[data-theme='dark']
+  --bg-clr: #181824
+  --text-primary: white
+  --task-container-bg: #25273C
+  --tasks-btn-clr: #5F607E
+  --active-task-clr: #C3C5DE
+  --done-task-clr: #4D4F64
+  --new-task-clr: #6B6D82
+  --tasks-bg-image: url('./bg-desktop-dark.jpg')
+
+.container
+  padding: 0 20px
+  width: 100%
