@@ -1,4 +1,5 @@
 \:root
+
   --text-primary: black
   --bg-clr: #FAFAFA
   --tasks-btn-clr: #93919C
@@ -14,11 +15,19 @@
   --task-container-bg: #FFFFFE
   --task-container-b-clr: #E5E4E9
   --task-container-shadow: 0px 0px 8px rgba(0, 0, 0, 0.18)
+
   // 
+  --base-clr: #6D35C5
+
+  // transition standart
+  --trnst-normal: 0.4s
+
+  // active buttons 
   --active-task-clr: #4A4B60
-  // 
+
+  //padding 
   --task-container-padding: 12px 20px
-  // 
+  // nav bar width
   --nav-width: 60%
 
   // font sizes
@@ -38,8 +47,11 @@
   --text-60: 14px
   --text-70: 12px
   --text-80: 10px
+
+  // changeable fonts
+  --ch-heading-10: 40px
   // other
-  --task-box-shadow: 0 0 14px
+  --box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.18)
 
 *
   margin: 0
@@ -51,7 +63,6 @@
 [data-theme='light']
   --tasks-bg-image: url('./bg-desktop-light.jpg')
   --task-container-bg: #FFFFFE
-
 
 [data-theme='dark']
   --bg-clr: #181824
@@ -66,3 +77,6 @@
 .container
   padding: 0 20px
   width: 100%
+
+.flex
+  display: flex

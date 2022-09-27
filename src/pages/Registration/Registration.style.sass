@@ -1,0 +1,40 @@
+.reg
+  &-wrapper
+    box-shadow: var(--box-shadow)
+    border-radius: 6px
+    margin: 6% auto
+    padding: 40px 20px
+
+    flex-direction: column
+    align-items: center
+
+  &-header
+    flex-direction: column
+    align-items: center
+
+  &-form
+    flex-direction: column
+    gap: 20px
+
+    &__fullname, &__email, &__password, &__confirm
+      font-size: var(--text-40)
+      padding: 2px 4px
+      color: black
+
+    &__submit
+      width: 100%
+      color: var(--base-clr)
+      font-weight: 600
+      font-size: var(--text-30)
+      background: none
+      border: 1px solid var(--base-clr)
+      transition: var(--trnst-normal)
+      cursor: pointer
+      padding: 6px 0
+      &:hover
+        background: var(--base-clr)
+        color: white
+
+.user
+  &-info, &-private
+    gap: 10px
