@@ -1,13 +1,5 @@
-import { Header } from "../../components/Header/Header.component";
-
 const DashboardPage = () => {
-  return (
-    <section className="dashboard">
-      <Header>
-        <></>
-      </Header>
-    </section>
-  );
+  return <section className="dashboard"></section>;
 };
 
 export default DashboardPage;
