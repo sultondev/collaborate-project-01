@@ -1,0 +1,60 @@
+
+// login section 
+.login
+
+  &-wrapper
+    box-shadow: var(--box-shadow)
+    max-width: 100%
+    border-radius: 6px
+    margin: 6% auto
+    padding: 40px 20px
+
+    flex-direction: column
+    align-items: center
+
+  // login's header block
+  &-header
+    flex-direction: column
+    align-items: center
+    &__title
+      font-size: var(--ch-heading-10)
+
+  // login's icons block
+  &-icons
+    align-items: center
+    justify-content: center
+    gap: 6px
+    width: 100%
+    margin: 0 auto
+
+    &__icon
+      width: 80px
+
+    &__line
+      min-width: 100px
+      width: 10%
+      height: 4px
+      background: #000
+
+  // login's form block
+  &-form
+    min-width: 280px
+    min-height: 400px
+    flex-direction: column
+    gap: 10px
+
+    &__email, &__password, &__submit
+      font-size: var(--text-40)
+      padding: 2px 4px
+      color: black
+
+    &__submit
+      color: var(--base-clr)
+      font-weight: 600
+      background: none
+      border: 1px solid var(--base-clr)
+      transition: var(--trnst-normal)
+      cursor: pointer
+      &:hover
+        background: var(--base-clr)
+        color: white

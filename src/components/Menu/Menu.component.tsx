@@ -1,9 +1,7 @@
 import "./styles/Menu.style.sass";
-import ROUTES from "../../constants/routes/Routes.constant";
+import ROUTES from "../../config/Routes.config";
 import { Link } from "react-router-dom";
-export const Menu = (prop: { children: JSX.Element }) => {
-  const { children } = prop;
-
+export const Menu = () => {
   return (
     <nav className="nav">
       <ul className="nav-list">
@@ -19,7 +17,6 @@ export const Menu = (prop: { children: JSX.Element }) => {
             );
           })}
       </ul>
-      <div className="nav-theme">{children}</div>
     </nav>
   );
 };

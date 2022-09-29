@@ -1,10 +1,14 @@
+import { Outlet } from "react-router-dom";
 import { Menu } from "../Menu/Menu.component";
 import "./Header.style.sass";
-export const Header = (prop: { children: JSX.Element }) => {
-  const { children } = prop;
+
+export const Header = () => {
   return (
-    <header className="app-header">
-      <Menu>{children}</Menu>
-    </header>
+    <>
+      <header className="app-header">
+        <Menu />
+      </header>
+      <Outlet />
+    </>
   );
 };

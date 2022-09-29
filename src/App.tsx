@@ -1,9 +1,11 @@
-import "./App.sass";
+import "./styles/App.sass";
 import useLocalStorage from "use-local-storage";
-import { Routes, Route } from "react-router-dom";
-import Tasks from "./pages/Tasks/Tasks.page";
-import "./assets/styles/mobileStyles/MobileStyles.sass";
-import { Header } from "./components/Header/Header.component";
+// import { Routes, Route, Outlet } from "react-router-dom";
+// import { Provider } from "react-redux";
+
+// Componenets
+import { Routes } from "./routes/routes.config";
+// import { store } from "./redux/store";
 
 function App() {
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -19,16 +21,12 @@ function App() {
   return (
     <div className="app" data-theme={theme}>
       <div className="container">
-        <Header>
-          <div className="">
-            <button onClick={themeSwitch} className="app-header">
-              Change
-            </button>
-          </div>
-        </Header>
-        <Routes>
-          <Route path="todos" element={<Tasks />}></Route>
-        </Routes>
+        <div className="">
+          <button onClick={themeSwitch} className="app-header">
+            Change
+          </button>
+        </div>
+        <Routes />
       </div>
       {/* <Link to="/tasks">Tasks</Link>{" "} */}
     </div>
