@@ -1,0 +1,4 @@
+export enum UserStatus {
+  AUTHORIZED = "AUTHORIZED",
+  UN_AUTHORIZED = "UN_AUTHORIZED",
+}
