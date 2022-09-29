@@ -1,4 +1,4 @@
-import "./todos.style.sass";
+import "./Todos.style.sass";
 import { TodoList } from "../../components/TodoList/TodoList.component";
 const TodosPage = () => {
   return (
