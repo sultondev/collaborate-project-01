@@ -1,6 +1,6 @@
 import "./TodoList.style.sass";
 
-export const TodoList = () => {
+const TodoList = (props: any) => {
   // const todoData = [];
   // axios
   //   .get("https://todo-app-back-sultondev.herokuapp.com/todos", {
@@ -19,6 +19,7 @@ export const TodoList = () => {
   //   .then(function () {
   //     // always executed
   //   });
+  // props.dispatch({ type: "INIT_TODO" });
   return (
     <ul className="tasks-list">
       {/* {todoData &&
@@ -44,3 +45,5 @@ export const TodoList = () => {
     </ul>
   );
 };
+
+export default TodoList;
