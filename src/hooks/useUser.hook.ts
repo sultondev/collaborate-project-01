@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { authProtectedApi } from "../config/axios.config";
 import { useNavigate } from "react-router-dom";
 import { store } from "../redux/store";
-import { initialState } from "../redux/reducers/userReducer";
+import { useSelector } from "react-redux";
 import { userPropsType } from "../typing/types/User/userProps.type";
 const getUser = async () => {
   try {
@@ -14,32 +14,30 @@ const getUser = async () => {
 };
 
 export const useUser = () => {
-  const [user, setUser] = useState<userPropsType>(initialState);
+  // const [user, setUser] = useState<userPropsType>(initialState);
   const navigate = useNavigate();
+  const user = useSelector((state: { user: userPropsType }) => state.user);
 
   const onMount = useCallback(async () => {
     if (!user.id) {
       const user = await getUser();
       if (user) {
         store.dispatch({ type: "SET_USER", payload: user });
-        setUser(user);
         navigate("/welcome", { replace: true });
       } else {
         navigate("/login");
       }
     }
-  }, [setUser]);
+  }, [user]);
 
   const logout = useCallback(async () => {
     store.dispatch({ type: "DEFAULT_USER" });
-    setUser(initialState);
     localStorage.removeItem("token");
     navigate("/login");
-  }, [setUser]);
+  }, []);
 
   useEffect(() => {
     onMount();
-  }, [setUser]);
-  console.log(user);
-  return { user: store.getState().user, logout };
+  }, []);
+  return { user, logout };
 };

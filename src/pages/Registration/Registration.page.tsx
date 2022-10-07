@@ -2,7 +2,11 @@ import "./Registration.style.sass";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { publicApi } from "../../config/axios.config";
-import { userRegistrationType } from "../../typing/types/User/userProps.type";
+import { useDispatch } from "react-redux";
+import {
+  userRegistrationType,
+  userPropsType,
+} from "../../typing/types/User/userProps.type";
 
 const initialValues = {
   email: "",
@@ -12,6 +16,7 @@ const initialValues = {
 };
 
 const RegistrationPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // setting formik
   const formik = useFormik({
@@ -21,9 +26,12 @@ const RegistrationPage = () => {
       // Posting Data
       publicApi
         .post("/auth/local/register", values)
-        .then(function (response: { data: { jwt: string } }) {
+        .then(function (response: {
+          data: { jwt: string; user: userPropsType };
+        }) {
           formikHelpers.resetForm();
           localStorage.setItem("token", response.data.jwt);
+          dispatch({ type: "SET_USER", payload: response.data.user });
           navigate("/");
         })
         .catch(function (error) {

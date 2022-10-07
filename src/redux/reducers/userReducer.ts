@@ -1,13 +1,13 @@
 import { userPropsType } from "../../typing/types/User/userProps.type";
 
 export const initialState: userPropsType = {
-  id: null,
+  id: 0,
   username: "",
   email: "",
   confirmed: false,
-  blocked: null,
+  blocked: false,
   role: {
-    id: null,
+    id: 0,
     name: "",
     description: "",
     type: "un_authenticated",

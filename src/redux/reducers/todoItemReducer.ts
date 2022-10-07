@@ -1,6 +1,6 @@
 import { TodoItemType } from "../../typing/types/Todo/TodoItem";
 
-const initialState = { id: 0, title: "", done: false, priority: "", due: "" };
+const initialState = { title: "", done: false, priority: "", due: "" };
 
 function todoItemReducer(
   state = initialState,
@@ -13,6 +13,10 @@ function todoItemReducer(
         title: payload.title,
       };
       break;
+    case "RESET_TODO":
+      return {
+        initialState,
+      };
     default:
       return state;
       break;

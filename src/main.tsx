@@ -9,11 +9,15 @@ import App from "./App";
 // Style files
 import "./styles/index.sass";
 import "./assets/styles/mobileStyles/MobileStyles.sass";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

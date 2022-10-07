@@ -3,8 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { LayoutProps } from "../../typing/interfaces/LayoutProps.interface";
 import { FC } from "react";
 
-const Layout: FC<LayoutProps> = (props: { routes }) => {
-  const { routes } = props;
+const Layout: FC<LayoutProps> = ({ routes }) => {
   // console.log(routes);
   return (
     <div className="">

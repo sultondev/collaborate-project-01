@@ -1,8 +1,9 @@
 import "./styles/Menu.style.sass";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUser.hook";
-export const Menu = (props: { routes: any }) => {
-  const { routes } = props;
+import { LayoutProps } from "../../typing/interfaces/LayoutProps.interface";
+import { FC } from "react";
+export const Menu: FC<LayoutProps> = ({ routes }) => {
   const { logout } = useUser();
   return (
     <nav className="nav">
