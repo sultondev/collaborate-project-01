@@ -1,26 +1,33 @@
-import { connect } from "react-redux";
+import { useFormik } from "formik";
 
-const TodoCreator = (props: any) => {
-  console.log(props);
+const TodoCreator = () => {
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+    },
+    onSubmit: (values: { title: string }) => {
+      alert(values.title);
+    },
+  });
 
-  function handleChange(e: any) {
-    props.dispatch({ type: "CREATE_TODO", payload: { title: e.target.value } });
-  }
+  // function handleChange(e: React.FormEvent<HTMLInputElement>) {
+  //   dispatch({
+  //     type: "CREATE_TODO",
+  //     payload: { title: e.currentTarget.value },
+  //   });
+  // }
   return (
-    <div className="">
+    <form className="" onSubmit={formik.handleSubmit}>
       <input
         type="text"
-        name=""
-        id=""
-        onChange={handleChange}
-        value={props.todos.title}
+        name="title"
+        id="title"
+        onChange={formik.handleChange}
+        value={formik.values.title}
       />
-    </div>
+      <button type="submit">Create</button>
+    </form>
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  todos: state.todos,
-  user: state.user,
-});
-export default connect(mapStateToProps)(TodoCreator);
+export default TodoCreator;
