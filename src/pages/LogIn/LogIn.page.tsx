@@ -1,12 +1,57 @@
-import { Formik } from "formik";
+import { useFormik } from "formik";
 import appLogo from "../../assets/icons/favicon/logo.svg";
 import userLogo from "../../assets/icons/settings/user-logo.svg";
 
+import { Link, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { userPropsType } from "../../typing/types/User/userProps.type";
 import "./LogIn.style.sass";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { authProtectedApi, publicApi } from "../../config/axios.config";
 
-const LogInPage = () => {
+const initialValues = { email: "", password: "" };
+
+const LogInPage = (props: {
+  user: userPropsType;
+  dispatch: (args: { type: string; payload: userPropsType }) => void;
+}) => {
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: async (values, { setErrors, setSubmitting }) => {
+      try {
+        const response = await publicApi.post("/auth/local", {
+          identifier: values.email,
+          password: values.password,
+        });
+        if (response.data.jwt) {
+          localStorage.setItem("token", response.data.jwt);
+          const { data } = await authProtectedApi().get("/users/me");
+          console.log(data);
+          props.dispatch({ type: "SET_USER", payload: data });
+          navigate("/welcome", {
+            replace: true,
+          });
+        }
+      } catch {
+        setErrors({
+          password: "Nato'gri foydalanuvchi yoki parol",
+        });
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+  } = formik;
+
   return (
     <section className="login">
       <div className="container">
@@ -26,73 +71,37 @@ const LogInPage = () => {
             </div>
           </header>
 
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
-              axios
-                .post(
-                  "https://todo-app-back-sultondev.herokuapp.com/auth/local",
-                  {
-                    identifier: values.email,
-                    password: values.password,
-                  }
-                )
-                .then(function (response) {
-                  alert("successfully authorized: " + response.data);
-                })
-                .catch(function (error) {
-                  alert("not authorized: ");
-                  console.log(error);
-                });
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-            }) => (
-              <form onSubmit={handleSubmit} className="login-form flex">
-                <input
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                  className="login-form__email"
-                  placeholder="Email"
-                  required
-                />
-                {errors.email && touched.email && errors.email}
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.password}
-                  className="login-form__password"
-                  placeholder="Password"
-                  required
-                />
-                {errors.password && touched.password && errors.password}
-                <button
-                  type="submit"
-                  className="login-form__submit"
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-          </Formik>
+          <form onSubmit={handleSubmit} className="login-form flex">
+            <input
+              type="text"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+              className="login-form__email"
+              placeholder="Email"
+              required
+            />
+            {errors.email && touched.email && errors.email}
+            <input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+              className="login-form__password"
+              placeholder="Password"
+              required
+            />
+            {errors.password && touched.password && errors.password}
+            <button
+              type="submit"
+              className="login-form__submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </form>
           <div>
             <Link to="/registration">Do not have an account?</Link>
           </div>
@@ -102,4 +111,7 @@ const LogInPage = () => {
   );
 };
 
-export default LogInPage;
+const mapPropsToState = (state: { jwt: string; user: userPropsType }) => ({
+  user: state.user,
+});
+export default connect(mapPropsToState)(LogInPage);
