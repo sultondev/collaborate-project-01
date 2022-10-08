@@ -1,21 +1,31 @@
 import { useFormik } from "formik";
+import { authProtectedApi } from "../../config/axios.config";
 
 const TodoCreator = () => {
   const formik = useFormik({
     initialValues: {
       title: "",
     },
-    onSubmit: (values: { title: string }) => {
-      alert(values.title);
+
+    onSubmit: async (
+      values: { title: string },
+      { resetForm, setSubmitting }
+    ) => {
+      try {
+        const response = await authProtectedApi().post("/todos", values);
+        if (response.status === 200) {
+          resetForm();
+          setSubmitting(false);
+        }
+        // Disabling any for error
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        setSubmitting(false);
+        alert(error.message);
+      }
     },
   });
 
-  // function handleChange(e: React.FormEvent<HTMLInputElement>) {
-  //   dispatch({
-  //     type: "CREATE_TODO",
-  //     payload: { title: e.currentTarget.value },
-  //   });
-  // }
   return (
     <form className="" onSubmit={formik.handleSubmit}>
       <input
@@ -25,7 +35,9 @@ const TodoCreator = () => {
         onChange={formik.handleChange}
         value={formik.values.title}
       />
-      <button type="submit">Create</button>
+      <button type="submit" disabled={formik.isSubmitting}>
+        Create
+      </button>
     </form>
   );
 };

@@ -23,7 +23,7 @@ export const useUser = () => {
       const user = await getUser();
       if (user) {
         store.dispatch({ type: "SET_USER", payload: user });
-        navigate("/welcome", { replace: true });
+        navigate("/dashboard", { replace: true });
       } else {
         navigate("/login");
       }

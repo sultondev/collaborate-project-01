@@ -27,8 +27,8 @@ const layouts: Record<UserStatus, LayoutProps | null> = {
   [UserStatus.UN_AUTHENTICATED]: {
     routes: {
       Welcome: {
-        path: "/welcome",
-        link: "/welcome",
+        path: "/",
+        link: "/",
         element: <WelcomePage />,
       },
       "Premium Version": {
