@@ -1,29 +1,39 @@
 import { useEffect, useState } from "react";
 import { authProtectedApi } from "../config/axios.config";
+import { useSelector, useDispatch } from "react-redux";
+import { TodoItemType } from "../typing/types/Todo/TodoItem";
+import { VoidSetter } from "../typing/types/general/VoidSetter.type";
+
+const fetchApi = async (
+  url: string,
+  loadingSet: VoidSetter,
+  StateType: string,
+  errorSet: VoidSetter,
+  dispatcher: VoidSetter
+) => {
+  loadingSet(true);
+  const response = await authProtectedApi().get(url);
+  if (response.status === 200) {
+    dispatcher({ type: StateType, payload: response.data });
+    loadingSet(false);
+  }
+  errorSet("Something went wrong");
+  loadingSet(false);
+};
 
 export const useTodo = () => {
-  const [todos, setTodos] = useState([]);
+  const dispatch = useDispatch();
+
+  const todos = useSelector((state: { todos: TodoItemType[] }) => state.todos);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function getAllTodos() {
-    setLoading(true);
-    const response = await authProtectedApi().get("/todos");
-    if (response.data.length > 0) {
-      console.log(response);
-      setError("Everything is alright");
-      setLoading(false);
-      return response.data;
-    }
-    setError("You did not create any todos");
-    setLoading(false);
-  }
-
+  const load = () => {
+    fetchApi("/todos", setLoading, "FETCH_TODOS", setError, dispatch);
+  };
   useEffect(() => {
-    getAllTodos().then((data) => {
-      setTodos(data);
-    });
-  }, [setTodos]);
+    load();
+  }, []);
 
-  return { todos, error, loading };
+  return { todos, error, loading, reload: load };
 };

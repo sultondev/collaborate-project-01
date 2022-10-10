@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
 import { authProtectedApi } from "../../config/axios.config";
+import { useTodo } from "../../hooks/useTodo.hook";
 
 const TodoCreator = () => {
+  const { reload } = useTodo();
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -15,6 +17,7 @@ const TodoCreator = () => {
         const response = await authProtectedApi().post("/todos", values);
         if (response.status === 200) {
           resetForm();
+          reload();
           setSubmitting(false);
         }
         // Disabling any for error
