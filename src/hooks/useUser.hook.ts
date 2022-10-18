@@ -16,7 +16,9 @@ const getUser = async () => {
 export const useUser = () => {
   // const [user, setUser] = useState<userPropsType>(initialState);
   const navigate = useNavigate();
-  const user = useSelector((state: { user: userPropsType }) => state.user);
+  const user: userPropsType = useSelector(
+    (state: { user: userPropsType }) => state.user
+  );
 
   const onMount = useCallback(async () => {
     if (!user.id) {
@@ -25,6 +27,7 @@ export const useUser = () => {
         store.dispatch({ type: "SET_USER", payload: user });
         navigate("/dashboard", { replace: true });
       } else {
+        store.dispatch({ type: "DEFAULT_USER" });
         navigate("/login");
       }
     }

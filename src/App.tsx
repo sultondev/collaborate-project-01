@@ -1,22 +1,26 @@
+// Media
 import "./styles/App.sass";
-import useLocalStorage from "use-local-storage";
 
 // Componenets
-import layouts from "./routes/Layout/Routes.layout";
 import Layout from "./components/Layout/BaseLayout.component";
 import { UserStatus } from "./typing/enums/UserStatus.enum";
+
+// Hooks
 import { useUser } from "./hooks/useUser.hook";
+import useLocalStorage from "use-local-storage";
 import { useMemo } from "react";
+import layouts from "./routes/Layout/Routes.layout";
+
+// Configs
 
 function App() {
   const { user } = useUser();
 
-  const layoutProps = useMemo(
-    () => layouts[user.role.type.toUpperCase() as UserStatus],
-    [user.role.type]
-  );
-  const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const layoutProps = useMemo(() => {
+    return layouts[user.role.type.toUpperCase() as UserStatus];
+  }, [user.role.type]);
 
+  const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [theme, setTheme] = useLocalStorage(
     "theme",
     defaultDark ? "dark" : "light"

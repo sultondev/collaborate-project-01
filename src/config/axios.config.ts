@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const _BASE_CONFIG: AxiosRequestConfig = {
-  baseURL: "https://todo-app-back-sultondev.herokuapp.com",
+  baseURL: "http://localhost:1337",
   headers: {
     "Content-Type": "application/json",
   },

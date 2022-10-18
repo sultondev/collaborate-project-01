@@ -1,12 +1,23 @@
 import "./TodoList.style.sass";
 import { useTodo } from "../../hooks/useTodo.hook";
 import { TodoItemType } from "../../typing/types/Todo/TodoItem";
+import { authProtectedApi } from "../../config/axios.config";
+import { useDispatch } from "react-redux";
 
 const TodoList = () => {
   const { todos, loading } = useTodo();
+  const dispatch = useDispatch();
   if (loading) {
     return <div className="">Loading...</div>;
   }
+
+  const deleteTodoItemNoRender = async (id: number) => {
+    const response = await authProtectedApi().delete(`/todos/${id}`);
+    if (response.status === 200) {
+      dispatch({ type: "DELETE_TODO", payload: { id: id } });
+    }
+  };
+
   return (
     <ul className="tasks-list">
       {todos &&
@@ -20,9 +31,7 @@ const TodoList = () => {
 
               <button
                 className="tasks-list__item-delete"
-                onClick={() => {
-                  console.log("segop uko");
-                }}
+                onClick={() => deleteTodoItemNoRender(data.id)}
               >
                 Delete
               </button>
